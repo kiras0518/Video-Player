@@ -15,16 +15,18 @@ class MainViewController: UIViewController {
     var buttomView: UIView!
     
     var avPlayer: AVPlayer!
+    
     var playerLayer: AVPlayerLayer!
     
     var isPlaying: PlayStatus = .play
+    
     var isMuting: SoundStatus = .mute
     
     let fullScreenSize = UIScreen.main.bounds.size
     
-    lazy var playButton: UIButton = {
+    var playButton: UIButton = {
         
-        let button = UIButton(frame: CGRect(x: 8, y: fullScreenSize.height * 355/375  , width: 50, height: 25))
+        let button = UIButton(frame: CGRect(x: 8, y: 700  , width: 50, height: 25))
         
         button.setTitle("Play", for: .normal)
         
@@ -34,9 +36,9 @@ class MainViewController: UIViewController {
         
     }()
     
-    lazy var muteButton: UIButton = {
+    var muteButton: UIButton = {
         
-        let button = UIButton(frame: CGRect(x: 355, y: fullScreenSize.height * 355/375, width: 50, height: 25))
+        let button = UIButton(frame: CGRect(x: 355, y: 700, width: 50, height: 25))
         
         button.setTitle("Mute", for: .normal)
         
@@ -46,7 +48,6 @@ class MainViewController: UIViewController {
         
     }()
     
-
     @objc func playVideo() {
         
         switch isPlaying {
@@ -71,25 +72,27 @@ class MainViewController: UIViewController {
         switch isMuting {
             
         case .mute:
+            
+            avPlayer.isMuted = false
             isMuting = .unmute
             muteButton.setTitle("Unmute", for: .normal)
+            
         case .unmute:
+            
+            avPlayer.isMuted = true
             isMuting = .mute
             muteButton.setTitle("Mute", for: .normal)
             
         }
     }
-    
-    
+
     func buttomViewColor() {
         
         buttomView = UIView(frame: CGRect(x: 0, y: view.bounds.height - (view.bounds.height * 44/667), width: view.bounds.width, height: view.bounds.height * 44/667))
         
         buttomView.backgroundColor = UIColor(red: 123/255, green: 123/255, blue: 123/255, alpha: 1)
     }
-    
-    
-    
+
     func playLayer() {
 
         let remoteURL = URL(string: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8")
@@ -107,21 +110,44 @@ class MainViewController: UIViewController {
         view.layer.addSublayer(playerLayer)
         
         avPlayer.play()
-        
+
         isPlaying = .play
-        
-        print("playing")
-        
+
     }
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let playStatus = object as? UIButton else { return }
+        
+        if keyPath == "Play" {
+            
+            if playStatus.titleLabel?.text == "Play" {
+                
+                avPlayer.play()
+                
+            } else {
+                
+                avPlayer.pause()
+                
+            }
+            
+        }
+        
+        if keyPath == "Mute" {
+            if playStatus.titleLabel?.text == "Mute" {
+                
+                avPlayer.isMuted = true
+                
+            } else {
+                
+                avPlayer.isMuted = false
+                
+            }
+        }
+    }
     
-    
-    
-    
-    
-//    override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
-//    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         
@@ -136,7 +162,6 @@ class MainViewController: UIViewController {
         self.view.addSubview(muteButton)
         
         playLayer()
-
+        
     }
 }
-
