@@ -12,22 +12,11 @@ import AVKit
 
 class MainViewController: UIViewController {
 
-    enum PlayStatus {
-        
-        case play
-        
-        case stop
-    }
+    var buttomView: UIView!
     
-    enum SoundStatus {
-        
-        case mute
-        
-        case unmute
-        
-    }
+    var avPlayer: AVPlayer!
+    var playerLayer: AVPlayerLayer!
     
-    var avplayer: AVPlayer!
     var isPlaying: PlayStatus = .play
     var isMuting: SoundStatus = .mute
     
@@ -47,7 +36,7 @@ class MainViewController: UIViewController {
     
     lazy var muteButton: UIButton = {
         
-        let button = UIButton(frame: CGRect(x: fullScreenSize.width * 320/375, y: fullScreenSize.height * 355/375, width: 50, height: 25))
+        let button = UIButton(frame: CGRect(x: 355, y: fullScreenSize.height * 355/375, width: 50, height: 25))
         
         button.setTitle("Mute", for: .normal)
         
@@ -63,9 +52,14 @@ class MainViewController: UIViewController {
         switch isPlaying {
             
         case .play:
+            
+            avPlayer.pause()
             isPlaying = .stop
             playButton.setTitle("Stop", for: .normal)
+            
         case .stop:
+            
+            avPlayer.play()
             isPlaying = .play
             playButton.setTitle("Play", for: .normal)
         
@@ -78,27 +72,71 @@ class MainViewController: UIViewController {
             
         case .mute:
             isMuting = .unmute
+            muteButton.setTitle("Unmute", for: .normal)
         case .unmute:
             isMuting = .mute
+            muteButton.setTitle("Mute", for: .normal)
             
         }
     }
     
     
-    
-    
-    //let fullScreenSize = UIScreen.main.bounds
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+    func buttomViewColor() {
+        
+        buttomView = UIView(frame: CGRect(x: 0, y: view.bounds.height - (view.bounds.height * 44/667), width: view.bounds.width, height: view.bounds.height * 44/667))
+        
+        buttomView.backgroundColor = UIColor(red: 123/255, green: 123/255, blue: 123/255, alpha: 1)
     }
     
+    
+    
+    func playLayer() {
+
+        let remoteURL = URL(string: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8")
+        // 建立 AVPlayer 播放器
+        self.avPlayer = AVPlayer(url: remoteURL!)
+        // 將 AVPlayer 新增到 AVPlayerLayer 上
+        self.playerLayer = AVPlayerLayer(player: avPlayer)
+
+        playerLayer.frame = CGRect(x: 10, y: 280, width: 400, height: 200)
+        
+        print("fullScreenSize",fullScreenSize)
+        
+        print(playerLayer.frame)
+        
+        view.layer.addSublayer(playerLayer)
+        
+        avPlayer.play()
+        
+        isPlaying = .play
+        
+        print("playing")
+        
+    }
+    
+    
+    
+    
+    
+    
+//    override var preferredStatusBarStyle: UIStatusBarStyle {
+//        return .lightContent
+//    }
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        buttomViewColor()
+        
+        self.view.addSubview(buttomView)
+        
         self.view.addSubview(playButton)
+        
         self.view.addSubview(muteButton)
-        print("HH")
-       
+        
+        playLayer()
+
     }
 }
 

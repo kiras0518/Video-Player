@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D3773C4226862BC0056B604 /* PlayMuteEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3773C3226862BC0056B604 /* PlayMuteEnum.swift */; };
 		7DC6C4DE22683FCE00381F3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC6C4DD22683FCE00381F3C /* AppDelegate.swift */; };
 		7DC6C4E022683FCE00381F3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC6C4DF22683FCE00381F3C /* MainViewController.swift */; };
 		7DC6C4E522683FCF00381F3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DC6C4E422683FCF00381F3C /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D3773C3226862BC0056B604 /* PlayMuteEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMuteEnum.swift; sourceTree = "<group>"; };
 		7DC6C4DA22683FCE00381F3C /* VideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DC6C4DD22683FCE00381F3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7DC6C4DF22683FCE00381F3C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 			children = (
 				7DC6C4DD22683FCE00381F3C /* AppDelegate.swift */,
 				7DC6C4DF22683FCE00381F3C /* MainViewController.swift */,
+				7D3773C3226862BC0056B604 /* PlayMuteEnum.swift */,
 				7DC6C4EF226847C200381F3C /* Main.storyboard */,
 				7DC6C4E422683FCF00381F3C /* Assets.xcassets */,
 				7DC6C4E622683FCF00381F3C /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			files = (
 				7DC6C4E022683FCE00381F3C /* MainViewController.swift in Sources */,
 				7DC6C4DE22683FCE00381F3C /* AppDelegate.swift in Sources */,
+				7D3773C4226862BC0056B604 /* PlayMuteEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
